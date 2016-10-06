@@ -39,16 +39,33 @@ set_include_path(implode("/", array(
     get_include_path(),
 )));
 
+$_mime_type = array(
+    'image/jpeg' => '.jpg',
+    'image/jpg' => '.jpg',
+    'image/png' => '.png',
+    'image/gif' => '.gif',
+    'application/x-empty' => '.png'
+);
+
 
 require_once 'Zend/Loader/Autoloader.php';
 
 $loader = Zend_Loader_Autoloader::getInstance();
 $loader->setFallbackAutoloader(true);
 
+$log = new Zend_Log();
+$writer = new Zend_Log_Writer_Stream(APPLICATION_PATH .'/data/logs/msg_' . date("Y-m-d") . '.log');
+$log->addWriter($writer);
+
+$log->debug('_POST: ' . print_r($_POST, true));
+$log->debug('_FILES: ' . print_r($_FILES, true));
+
 $upload = new Zend_File_Transfer_Adapter_Http();
-$upload->addValidator('Count', false, 1);
-$upload->addValidator('IsImage', false);
-$upload->addValidator('Size', false, array('min' => '2kB', 'max' => '2MB'));
+$upload->addValidator('Count', false, 1)
+    ->addValidator('IsImage', false)
+    ->addValidator('Size', false, 5097152)
+    ->addValidator('FilesSize', false, 5097152);
+
 //$upload->addValidator('ImageSize', false,
 //    array(
 //        'minwidth' => 50,
@@ -58,13 +75,14 @@ $upload->addValidator('Size', false, array('min' => '2kB', 'max' => '2MB'));
 //    )
 //);
 
-$_mime_type = array(
-    'image/jpeg' => '.jpg',
-    'image/jpg' => '.jpg',
-    'image/png' => '.png',
-    'image/gif' => '.gif',
-    'application/x-empty' => '.png'
-);
+if (false === $upload->isValid()){
+    $log->err('isValid errors: ' . print_r($upload->getErrors(), true));
+    $log->info('isValid messages: ' . print_r($upload->getMessages(), true));
+
+    header("HTTP/1.0 500 Server Error");
+    print implode("\n<br>", $upload->getMessages());
+    exit(0);
+}
 
 //create buckets
 $fileHash = $upload->getHash('sha1');
@@ -82,6 +100,9 @@ if (!file_exists($destPath) and !is_dir($dir)) {
 $upload->addFilter('Rename', array('target' => $destPath, 'overwrite' => true));
 
 if (false === $upload->receive()) {
+    $log->err('receive errors: ' . print_r($upload->getErrors(), true));
+    $log->info('receive messages: ' . print_r($upload->getMessages(), true));
+
     header("HTTP/1.0 500 Server Error");
     print implode("\n<br>", $upload->getMessages());
     exit(0);
