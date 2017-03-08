@@ -51,6 +51,13 @@ if (!file_exists($save_dir) && $is_locked) {
     return 0;
 }
 
+# check for a valid image file
+if(!getimagesize($orig_file)) {
+    header("Status: 404 Not Found");
+    echo "<br/>PATH=$path<br/>ORIGFILE=$orig_file";
+    return 0;
+}
+
 # parse out the requested image dimensions and resize mode
 $x_pos = strpos($tokens[2], 'x');
 $dash_pos = strpos($tokens[2], '-');
@@ -91,6 +98,12 @@ else {
 
 # mode 3 (stretch to fit) is automatic fall-through as image will be blindly resized
 # in following code to specified box
+//bugfix: $new_width and $new_height have to be > 0
+if($new_width == 0 && $new_height > 0) 
+    $new_width = $new_height;
+if($new_height == 0 && $new_width > 0) 
+    $new_height = $new_width;
+
 $image->resizeImage($new_width, $new_height, imagick::FILTER_LANCZOS, 1);
 
 # save and return the resized image file
