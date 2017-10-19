@@ -34,10 +34,11 @@ defined('IMAGES_UPLOAD_PATH')
 
 if (file_exists('config.php')) {
     require_once('config.php');
-}
+    define('USING_PRIVATE_KEY', true);
 
-if(!isset($config['privateKey'])) {
-    die('OSC CDN has not been configured. Visit setup.php for instructions.');
+    if(!isset($config['privateKey'])) {
+        die('OSC CDN has not been configured correctly!');
+    }
 }
 
 
@@ -69,7 +70,7 @@ $log->debug('_POST: ' . print_r($_POST, true));
 $log->debug('_FILES: ' . print_r($_FILES, true));
 
 
-if ($_POST['privateKey'] != $config['privateKey']) {
+if (defined(USING_PRIVATE_KEY) && ($_POST['privateKey'] != $config['privateKey'])) {
     $log->debug('Failed private key check');
     sleep(3);
     header("HTTP/1.1 401 Unauthorized");
