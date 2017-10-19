@@ -24,13 +24,21 @@
 defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
 
-
 // Define application environment
 defined('APPLICATION_ENV')
 || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 defined('IMAGES_UPLOAD_PATH')
 || define('IMAGES_UPLOAD_PATH', APPLICATION_PATH . '/img/');
+
+
+if (file_exists('config.php')) {
+    require_once('config.php');
+}
+
+if(!isset($config['privateKey'])) {
+    die('OSC CDN has not been configured. Visit setup.php for instructions.');
+}
 
 
 // Ensure library/ is on include_path
@@ -59,6 +67,14 @@ $log->addWriter($writer);
 
 $log->debug('_POST: ' . print_r($_POST, true));
 $log->debug('_FILES: ' . print_r($_FILES, true));
+
+
+if ($_POST['privateKey'] != $config['privateKey']) {
+    $log->debug('Failed private key check');
+    sleep(3);
+    header("HTTP/1.1 401 Unauthorized");
+    die('Unauthorized Request');
+}
 
 $upload = new Zend_File_Transfer_Adapter_Http();
 $upload->addValidator('Count', false, 1)
