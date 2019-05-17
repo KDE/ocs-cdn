@@ -31,7 +31,7 @@ $orig_dir = dirname(__FILE__);
 $path = $_GET['dir'];
 $tokens = explode("/", $path);
 $file = "/" . implode('/', array_slice($tokens, 3));
-$orig_file = $orig_dir . '/..' . $file;
+$orig_file = $orig_dir . $file;
 
 
 if (!file_exists($orig_file)) {

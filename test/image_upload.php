@@ -45,7 +45,7 @@ $loader->setFallbackAutoloader(true);
 echo "<pre>";
 echo "start upload test picture\n";
 
-$client = new Zend_Http_Client('http://localhost/image_upload.php');
+$client = new Zend_Http_Client('http://localhost/image_bucket_upload.php');
 if (false === file_exists(APPLICATION_PATH . '/f5463b.png')) {
     echo "file not found.";
     exit(0);

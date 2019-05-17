@@ -24,8 +24,11 @@
 
 // Define path to application directory
 defined('APPLICATION_PATH')
-|| define('APPLICATION_PATH', realpath(dirname(__FILE__)) . "/..");
+|| define('APPLICATION_PATH', realpath(dirname(__FILE__)));
 
+// Define path to application library
+defined('APPLICATION_LIB')
+|| define('APPLICATION_LIB', realpath(dirname(__FILE__) . '/../library'));
 
 // Define application environment
 defined('APPLICATION_ENV')
@@ -43,8 +46,8 @@ defined('OCS_IMGCACHE_LOG_MODE')
 
 
 // Ensure library/ is on include_path
-set_include_path(implode("/", array(
-    APPLICATION_PATH . '/library',
+set_include_path(implode(PATH_SEPARATOR, array(
+    APPLICATION_LIB,
     get_include_path(),
 )));
 
@@ -74,15 +77,6 @@ $upload->addValidator('Count', false, 1)
        ->addValidator('IsImage', false)
        ->addValidator('Size', false, 5097152)
        ->addValidator('FilesSize', false, 5097152);
-
-//$upload->addValidator('ImageSize', false,
-//    array(
-//        'minwidth' => 50,
-//        'maxwidth' => 2000,
-//        'minheight' => 50,
-//        'maxheight' => 2000
-//    )
-//);
 
 if (false === $upload->isValid()) {
     $log->err('isValid errors: ' . print_r($upload->getErrors(), true));
