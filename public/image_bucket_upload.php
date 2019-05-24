@@ -20,8 +20,6 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#date_default_timezone_set("Europe/Berlin");
-
 // Define path to application directory
 defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
@@ -39,7 +37,7 @@ defined('IMAGES_UPLOAD_PATH')
 
 defined('OCS_IMGCACHE_LOGFILE')
 || define('OCS_IMGCACHE_LOGFILE',
-    (getenv('OCS_IMGCACHE_LOGFILE') ? getenv('OCS_IMGCACHE_LOGFILE') : APPLICATION_PATH . '/data/logs/msg_' . date("Y-m-d") . '.log'));
+    (getenv('OCS_IMGCACHE_LOGFILE') ? getenv('OCS_IMGCACHE_LOGFILE') : APPLICATION_PATH . '/../data/logs/msg_' . date("Y-m-d") . '.log'));
 
 defined('OCS_IMGCACHE_LOG_MODE')
 || define('OCS_IMGCACHE_LOG_MODE', (getenv('OCS_IMGCACHE_LOG_MODE') ? getenv('OCS_IMGCACHE_LOG_MODE') : 'a'));
@@ -66,7 +64,7 @@ $loader = Zend_Loader_Autoloader::getInstance();
 $loader->setFallbackAutoloader(true);
 
 $log = new Zend_Log();
-$writer = new Zend_Log_Writer_Stream(IMGCACHE_LOGFILE, IMGCACHE_LOG_MODE);
+$writer = new Zend_Log_Writer_Stream(OCS_IMGCACHE_LOGFILE, OCS_IMGCACHE_LOG_MODE);
 $log->addWriter($writer);
 
 $log->debug('_POST: ' . print_r($_POST, true));
