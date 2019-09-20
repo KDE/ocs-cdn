@@ -42,6 +42,10 @@ defined('OCS_IMGCACHE_LOGFILE')
 defined('OCS_IMGCACHE_LOG_MODE')
 || define('OCS_IMGCACHE_LOG_MODE', (getenv('OCS_IMGCACHE_LOG_MODE') ? getenv('OCS_IMGCACHE_LOG_MODE') : 'a'));
 
+defined('OCS_DEFAULT_TIMEZONE')
+|| define('OCS_DEFAULT_TIMEZONE', (getenv('OCS_DEFAULT_TIMEZONE') ? getenv('OCS_DEFAULT_TIMEZONE') : 'UTC'));
+
+date_default_timezone_set(OCS_DEFAULT_TIMEZONE);
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
