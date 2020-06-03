@@ -49,7 +49,10 @@ $CN_APTH = ".";
 //echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
 
 
-$imgurl = $_GET['path'];
+$imgurl = urldecode($_GET['path']);
+
+echo "<p>Deleting file: ".$imgurl.'</p>';
+
 $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
 
@@ -64,9 +67,9 @@ if (!$delete_post_name) {
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imagename);
 
-print_r("File exists: ".$CN_APTH.'/img/' . $imagename.' = ' . $fileExists."\n");
+print_r("<p>File exists: ".$CN_APTH.'/img/' . $imagename.' = ' . $fileExists."\n");
 
-print_r("Rename file...");
+print_r("<p>Rename file...");
 
 $last_line = system('cd '.$CN_APTH.'/img', $retval);
 echo $last_line;
@@ -79,10 +82,10 @@ echo $retval;
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imagename . $delete_post_name);
 
-print_r("New File exists:" . $fileExists);
+print_r("<p>New File exists:" . $fileExists);
 
 //TODO
-print_r("Search for cached files...");
+print_r("<p>Search for cached files...");
 
 $last_line = system('cd '.$CN_APTH.'/cache', $retval);
 echo $last_line;
