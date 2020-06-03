@@ -64,7 +64,7 @@ if (!$delete_post_name) {
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imagename);
 
-print_r("File exists:" . $fileExists."\n", true);
+print_r("File exists: ".$CN_APTH.'/img/' . $imagename.' = ' . $fileExists."\n", true);
 
 print_r("Rename file...", true);
 
