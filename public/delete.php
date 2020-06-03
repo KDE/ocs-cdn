@@ -65,31 +65,24 @@ if (!$delete_post_name) {
     return;
 }
 
-$fileExists = file_exists($CN_APTH.'/img/' . $imagename);
+$fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
-print_r("<p>File exists: ".$CN_APTH.'/img/' . $imagename.' = ' . $fileExists."\n");
+print_r("<p>File exists: ".$CN_APTH.'/img/' . $imgurl.' = ' . $fileExists);
 
 print_r("<p>Rename file...");
 
-$last_line = system('cd '.$CN_APTH.'/img', $retval);
-echo $last_line;
-echo $retval;
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 //TODO
 $last_line = system('cp '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 echo $last_line;
 echo $retval;
 
-$fileExists = file_exists($CN_APTH.'/img/' . $imagename . $delete_post_name);
+$fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
-print_r("<p>New File exists:" . $fileExists);
+print_r("<p>New File exists: ".$CN_APTH.'/img/' . $imgurl . $delete_post_name.' = ' . $fileExists);
 
 //TODO
-print_r("<p>Search for cached files...");
-
-$last_line = system('cd '.$CN_APTH.'/cache', $retval);
-echo $last_line;
-echo $retval;
+print_r("<p>Search for cached files: ");
 
 $last_line = system('locate -i "'.$imagename.'"', $retval);
 echo $last_line;
