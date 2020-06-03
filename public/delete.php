@@ -93,9 +93,11 @@ if($fileExists) {
 print_r("<p>Search for cached files: ");
 print_r('<p>cd '.$CN_APTH.'/cache/ && locate -i "' . $imgurl.'"');
 
-$last_line = system('cd '.$CN_APTH.'/cache/ && locate -i "' . $imgurl.'"');
-echo $last_line;
-
+$resultArray = array();
+$last_line = exec('cd '.$CN_APTH.'/cache/ && locate -i "' . $imgurl.'"', $resultArray, $result);
+echo "<p>".$last_line;
+var_dump($resultArray);
+echo "<p>".$result;
 
 
 
