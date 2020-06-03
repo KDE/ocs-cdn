@@ -64,9 +64,9 @@ if (!$delete_post_name) {
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imagename);
 
-print_r("File exists:" . $fileExists);
+print_r("File exists:" . $fileExists."\n", true);
 
-print_r("Rename file...");
+print_r("Rename file...", true);
 
 $last_line = system('cd '.$CN_APTH.'/img', $retval);
 echo $last_line;
@@ -79,10 +79,10 @@ echo $retval;
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imagename . $delete_post_name);
 
-print_r("New File exists:" . $fileExists);
+print_r("New File exists:" . $fileExists, true);
 
 //TODO
-print_r("Search for cached files...");
+print_r("Search for cached files...", true);
 
 $last_line = system('cd '.$CN_APTH.'/cache', $retval);
 echo $last_line;
