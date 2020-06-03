@@ -93,7 +93,7 @@ if($fileExists) {
 print_r("<p>Search for cached files: ");
 print_r('<p>locate -i "' . $imgurl.'"');
 
-$last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
+$last_line = exec('locate -i "' . $imgurl.'"', $resultArray, $result);
 echo "<p>Last Line".$last_line;
 var_dump($resultArray);
 echo "<p>Status: ".$result;
@@ -108,6 +108,7 @@ echo "<p>Status: ".$result;
 
 $output = shell_exec('ls'." 2>&1"); 
 echo "<pre>$output</pre>"; 
+
 
 $output = shell_exec('locate -i "' . $imgurl.'" 2>&1'); 
 echo "<pre>$output</pre>"; 
