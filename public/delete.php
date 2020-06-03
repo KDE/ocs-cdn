@@ -98,16 +98,16 @@ echo "<p>Last Line".$last_line;
 var_dump($resultArray);
 echo "<p>Status: ".$result;
 
-//$resultArray = array();
-//$last_line = shell_exec('locate -i "' . $imgurl.'"');
-//echo "<p>Last Line".$last_line;
+$resultArray = array();
+$last_line = shell_exec('locate -i "' . $imgurl.'"');
+echo "<p>Last Line".$last_line;
 
-//$last_line = system('locate -i "' . $imgurl.'"', $result);
-//echo "<p>LastLine: ".$last_line;
-//echo "<p>Status: ".$result;
+$last_line = system('locate -i "' . $imgurl.'"', $result);
+echo "<p>LastLine: ".$last_line;
+echo "<p>Status: ".$result;
 
-//$output = shell_exec('ls'." 2>&1"); 
-//echo "<pre>$output</pre>"; 
+$output = shell_exec('ls'." 2>&1"); 
+echo "<pre>$output</pre>"; 
 
 $output = shell_exec('locate -i "' . $imgurl.'" 2>&1'); 
 echo "<pre>$output</pre>"; 
