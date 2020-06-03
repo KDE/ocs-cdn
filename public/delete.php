@@ -45,9 +45,9 @@ function getimg($url)
 
 
 
-echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
+//echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
 
-/*
+
 $imgurl = $_GET['path'];
 $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
@@ -74,7 +74,9 @@ $last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/cache', $retva
 echo $last_line;
 echo $retval;
 
-*/
+
+
+
 
 
 /*
