@@ -63,17 +63,31 @@ if (!$delete_post_name) {
 
 $fileExists = file_exists('./img/' . $imagename);
 
-echo "File exists:" . $fileExists;
+print_r("File exists:" . $fileExists);
 
-echo "Rename file...";
+print_r("Rename file...");
 
-echo "Search for cached files...";
-
-$last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/cache', $retval);
-
+$last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/img', $retval);
+echo $last_line;
+echo $retval;
+$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 echo $last_line;
 echo $retval;
 
+$fileExists = file_exists('./img/' . $imagename . $delete_post_name);
+
+print_r("New File exists:" . $fileExists);
+
+//TODO
+print_r("Search for cached files...");
+
+$last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/cache', $retval);
+echo $last_line;
+echo $retval;
+
+$last_line = system('locate -i "'.$imagename.'"', $retval);
+echo $last_line;
+echo $retval;
 
 
 
