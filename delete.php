@@ -38,6 +38,8 @@ function getimg($url)
     curl_close($process);
     return $return;
 }
+ 
+echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
 
 $imgurl = $_GET['path'];
 $delete_post_name = $_GET['post'];
