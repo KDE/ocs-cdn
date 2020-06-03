@@ -107,6 +107,12 @@ $last_line = system('locate -i "' . $imgurl.'"', $result);
 echo "<p>LastLine: ".$last_line;
 echo "<p>Status: ".$result;
 
+$output = shell_exec('ls'." 2>&1"); 
+  
+// Display the list of all file 
+// and directory 
+echo "<pre>$output</pre>"; 
+
 /*
 $image = getimg($imgurl);
 file_put_contents('img/' . $imagename, $image);
