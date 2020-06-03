@@ -69,6 +69,10 @@ $fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
 print_r("<p>File exists: ".$CN_APTH.'/img/' . $imgurl.' = ' . $fileExists);
 
+if($fileExists) {
+    echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">';
+}
+
 print_r("<p>Rename file...");
 
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
@@ -80,6 +84,10 @@ echo $retval;
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
 print_r("<p>New File exists: ".$CN_APTH.'/img/' . $imgurl . $delete_post_name.' = ' . $fileExists);
+
+if($fileExists) {
+    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name.'">';
+}
 
 //TODO
 print_r("<p>Search for cached files: ");
