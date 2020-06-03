@@ -94,7 +94,11 @@ print_r("<p>Search for cached files: ");
 print_r('<p>locate -i "' . $imgurl.'"');
 
 $last_line = exec('locate -i "' . $imgurl.'"', $resultArray, $result);
-var_dump($resultArray);
+//var_dump($resultArray);
+
+foreach ($resultArray as $value) {
+    echo "<p>rm $value";
+}
 
 
 /*
