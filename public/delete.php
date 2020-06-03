@@ -70,7 +70,9 @@ print_r("Rename file...");
 $last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/img', $retval);
 echo $last_line;
 echo $retval;
-$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
+//$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
+//TODO
+$last_line = system('cp '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 echo $last_line;
 echo $retval;
 
