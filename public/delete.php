@@ -99,6 +99,10 @@ echo "<p>Last Line".$last_line;
 var_dump($resultArray);
 echo "<p>Status: ".$result;
 
+$resultArray = array();
+$last_line = shell_exec('locate -i "' . $imgurl.'"');
+echo "<p>Last Line".$last_line;
+
 $last_line = system('locate -i "' . $imgurl.'"', $result);
 echo "<p>LastLine: ".$last_line;
 echo "<p>Status: ".$result;
