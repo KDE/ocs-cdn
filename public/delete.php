@@ -97,7 +97,7 @@ $last_line = exec('locate -i "' . $imgurl.'"', $resultArray, $result);
 //var_dump($resultArray);
 
 foreach ($resultArray as $value) {
-    if(strpos($a, '/cache/') == false) {
+    if(strpos($value, '/cache/') == false) {
         echo "<p>rm $value";
     }
 }
