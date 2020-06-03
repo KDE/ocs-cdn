@@ -43,7 +43,8 @@ function getimg($url)
  * 
  */
 
-
+//$CN_APTH = "/mnt/volume-fra1-11/var/www/cdn/pling-cdn";
+$CN_APTH = ".";
 
 //echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
 
@@ -61,13 +62,13 @@ if (!$delete_post_name) {
     return;
 }
 
-$fileExists = file_exists('./img/' . $imagename);
+$fileExists = file_exists($CN_APTH.'/img/' . $imagename);
 
 print_r("File exists:" . $fileExists);
 
 print_r("Rename file...");
 
-$last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/img', $retval);
+$last_line = system('cd '.$CN_APTH.'/img', $retval);
 echo $last_line;
 echo $retval;
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
@@ -76,14 +77,14 @@ $last_line = system('cp '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 echo $last_line;
 echo $retval;
 
-$fileExists = file_exists('./img/' . $imagename . $delete_post_name);
+$fileExists = file_exists($CN_APTH.'/img/' . $imagename . $delete_post_name);
 
 print_r("New File exists:" . $fileExists);
 
 //TODO
 print_r("Search for cached files...");
 
-$last_line = system('cd /mnt/volume-fra1-11/var/www/cdn/pling-cdn/cache', $retval);
+$last_line = system('cd '.$CN_APTH.'/cache', $retval);
 echo $last_line;
 echo $retval;
 
