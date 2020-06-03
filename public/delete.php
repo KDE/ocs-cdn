@@ -95,11 +95,13 @@ print_r('<p>locate -i "' . $imgurl.'"');
 
 $resultArray = array();
 $last_line = exec('locate -i "' . $imgurl.'"', $resultArray, $result);
-echo "<p>".$last_line;
+echo "<p>Last Line".$last_line;
 var_dump($resultArray);
-echo "<p>".$result;
+echo "<p>Status: ".$result;
 
-
+$last_line = system('locate -i "' . $imgurl.'"', $result);
+echo "<p>LastLine: ".$last_line;
+echo "<p>Status: ".$result;
 
 /*
 $image = getimg($imgurl);
