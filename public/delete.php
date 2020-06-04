@@ -26,12 +26,14 @@ $CN_APTH = ".";
 
 if (file_exists('config.php')) {
     require_once('config.php');
+} else {
+    header("HTTP/1.0 500 Server Error");
+    echo "Error" . PHP_EOL;
+    return;
 }
 
 $configKey = $config['privateKey'];
 
-
-echo $configKey;
 
 $privKey = urldecode($_GET['key']);
 
@@ -42,8 +44,6 @@ if (!$privKey || $privKey != $configKey) {
 }
 
 $imgurl = urldecode($_GET['path']);
-
-echo "<p>Deleting file: ".$imgurl.'</p>' . PHP_EOL;
 
 $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
@@ -59,19 +59,18 @@ if (!$delete_post_name) {
     return;
 }
 
+echo "Deleting file: ".$imgurl.PHP_EOL;
+
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
-
-
 if($fileExists) {
-    echo("<p>File exists" . PHP_EOL);
-    echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">' . PHP_EOL;
+    echo("File exists" . PHP_EOL);
 } else {
-    echo("<p>File did not exists" . PHP_EOL);
+    echo("File did not exists" . PHP_EOL);
 }
 
-echo("<p>Rename file..." . PHP_EOL);
-echo('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name . PHP_EOL);
+echo("Rename file..." . PHP_EOL);
+echo('Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name . PHP_EOL);
 
 //TODO
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
@@ -81,21 +80,24 @@ echo $last_line . PHP_EOL;
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
 if($fileExists) {
-    echo("<p>File exists" . PHP_EOL);
-    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name .'">' . PHP_EOL;
+    echo("Rename File done" . PHP_EOL);
 } else {
-    echo("<p>File did not exists" . PHP_EOL);
+    header("HTTP/1.0 500 Server Error");
+    echo("Rename File did not work!" . PHP_EOL);
 }
 
 //TODO
-echo("<p>Search for cached files:" . PHP_EOL);
-echo('<p>Command: locate -i "' . $imgurl.'"' . PHP_EOL);
+echo("Search for cached files:" . PHP_EOL);
+echo('Command: locate -i "' . $imgurl.'"' . PHP_EOL);
 
 $last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
-//var_dump($resultArray);
+
+if(count($resultArray) == 0) {
+    echo "No cached files found." . PHP_EOL;
+}
 
 foreach ($resultArray as $value) {
     if(strpos($value, '/cache/') !== false) {
-        echo "<p>Command: rm $value" . PHP_EOL;
+        echo "Command: rm $value" . PHP_EOL;
     }
 }
