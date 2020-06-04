@@ -28,13 +28,18 @@ if (file_exists('config.php')) {
     require_once('config.php');
 }
 
-var_dump($config);
+$configKey = $config['privateKey'];
 
-if(!isset($config['privateKey'])){
-    $configKey = md5(rand()).md5(rand());
-}
 
 echo $configKey;
+
+$privKey = urldecode($_GET['key']);
+
+if (!$privKey || $privKey != $configKey) {
+    header("HTTP/1.0 500 Server Error");
+    echo "Error" . PHP_EOL;
+    return;
+}
 
 $imgurl = urldecode($_GET['path']);
 
