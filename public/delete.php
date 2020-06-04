@@ -20,85 +20,64 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-/*
-function getimg($url)
-{
-    #$headers[] = 'Accept: image/gif, image/x-bitmap, image/jpeg, image/pjpeg';              
-    $headers[] = 'Connection: Keep-Alive';
-    $headers[] = 'Content-type: application/x-www-form-urlencoded;charset=UTF-8';
-    $user_agent = 'php';
-    $process = curl_init($url);
-    curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($process, CURLOPT_HEADER, 0);
-    curl_setopt($process, CURLOPT_USERAGENT, $user_agent);
-    curl_setopt($process, CURLOPT_TIMEOUT, 30);
-    curl_setopt($process, CURLOPT_USERPWD, "ubuntu:ubuntu.");
-    curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
-    $return = curl_exec($process);
-    curl_close($process);
-    return $return;
-}
- 
- * 
- */
-
+//Constants
 //$CN_APTH = "/mnt/volume-fra1-11/var/www/cdn/pling-cdn";
 $CN_APTH = ".";
 
-//echo "Test-URL". urlencode('8/d/9/f/b3eae1990699459eac56beb682b5e79f45e0.png');
-
-
 $imgurl = urldecode($_GET['path']);
 
-echo "<p>Deleting file: ".$imgurl.'</p>';
+echo "<p>Deleting file: ".$imgurl.'</p>\n';
 
 $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
 
 if (!$imgurl || !$imagename) {
-    print "Error, param: path missing";
+    print "Error, param: path missing\n";
     return;
 }
 if (!$delete_post_name) {
-    print "Error, param: post missing";
+    print "Error, param: post missing\n";
     return;
 }
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
-print_r("<p>File exists: ".$CN_APTH.'/img/' . $imgurl.' = ' . $fileExists);
+
 
 if($fileExists) {
+    print_r("<p>File exists".'\n');
     echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">';
+} else {
+    print_r("<p>File did not exists".'\n');
 }
 
-print_r("<p>Rename file...");
-print_r('<p>cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name);
+print_r("<p>Rename file...".'\n');
+print_r('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.'\n');
 
-//$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 //TODO
-$last_line = system('cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name);
-echo $last_line;
+//$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
+$last_line = system('cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.' 2>&1');
+echo $last_line.'\n';
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
-print_r("<p>New File exists: ".$CN_APTH.'/img/' . $imgurl . $delete_post_name.' = ' . $fileExists);
-
 if($fileExists) {
-    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name.'">';
+    print_r("<p>File exists".'\n');
+    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name .'">';
+} else {
+    print_r("<p>File did not exists".'\n');
 }
 
 //TODO
-print_r("<p>Search for cached files: ");
-print_r('<p>locate -i "' . $imgurl.'"');
+print_r("<p>Search for cached files: \n");
+print_r('<p>Command: locate -i "' . $imgurl.'"\n');
 
-$last_line = exec('locate -i "' . $imgurl.'"', $resultArray, $result);
+$last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
 //var_dump($resultArray);
 
 foreach ($resultArray as $value) {
     if(strpos($value, '/cache/') !== false) {
-        echo "<p>rm $value";
+        echo "<p>Command: rm $value\n";
     }
 }
 
