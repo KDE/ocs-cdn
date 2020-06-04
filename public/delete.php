@@ -24,6 +24,16 @@
 //$CN_APTH = "/mnt/volume-fra1-11/var/www/cdn/pling-cdn";
 $CN_APTH = ".";
 
+if (file_exists('config.php')) {
+    require_once('config.php');
+}
+
+if(!isset($config['privateKey'])){
+    $configKey = md5(rand()).md5(rand());
+}
+
+echo $configKey;
+
 $imgurl = urldecode($_GET['path']);
 
 echo "<p>Deleting file: ".$imgurl.'</p>' . PHP_EOL;
