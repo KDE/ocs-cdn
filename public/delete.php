@@ -69,35 +69,37 @@ if($fileExists) {
     echo("File did not exists" . PHP_EOL);
 }
 
-echo("Rename file..." . PHP_EOL);
-echo('Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name . PHP_EOL);
-
-//TODO
-//$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
-$last_line = system('cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.' 2>&1');
-echo $last_line . PHP_EOL;
-
-$fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
-
 if($fileExists) {
-    echo("Rename File done" . PHP_EOL);
-} else {
-    header("HTTP/1.0 500 Server Error");
-    echo("Rename File did not work!" . PHP_EOL);
+    echo("Rename file..." . PHP_EOL);
+    $last_line = system('mv '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.' 2>&1');
+    echo $last_line . PHP_EOL;
+
+    $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
+
+    if($fileExists) {
+        echo("Rename File done: ".$CN_APTH.'/img/' . $imgurl . $delete_post_name . PHP_EOL);
+    } else {
+        header("HTTP/1.0 500 Server Error");
+        echo("Rename File did not work!" . PHP_EOL);
+    }
 }
 
-//TODO
 echo("Search for cached files:" . PHP_EOL);
-echo('Command: locate -i "' . $imgurl.'"' . PHP_EOL);
+//echo('Command: locate -i "' . $imgurl.'"' . PHP_EOL);
 
 $last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
 
-if(count($resultArray) == 0) {
+$numFiles = count($resultArray);
+if($numFiles == 0) {
     echo "No cached files found." . PHP_EOL;
+} else {
+    echo "Found $numFiles files." . PHP_EOL;
 }
 
 foreach ($resultArray as $value) {
     if(strpos($value, '/cache/') !== false) {
         echo "Command: rm $value" . PHP_EOL;
+        $last_line = system("rm $value 2>&1");
+        echo $last_line . PHP_EOL;
     }
 }
