@@ -23,6 +23,8 @@ local/*
 
 phing/*
 
+public/config.php
+
 *.local*
 --.htaccess*
 .htaccess*

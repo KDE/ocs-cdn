@@ -26,17 +26,19 @@ $CN_APTH = ".";
 
 $imgurl = urldecode($_GET['path']);
 
-echo "<p>Deleting file: ".$imgurl.'</p>\n';
+echo "<p>Deleting file: ".$imgurl.'</p>' . PHP_EOL;
 
 $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
 
 if (!$imgurl || !$imagename) {
-    echo "Error, param: path missing\n";
+    header("HTTP/1.0 500 Server Error");
+    echo "Error, param: path missing" . PHP_EOL;
     return;
 }
 if (!$delete_post_name) {
-    echo "Error, param: post missing\n";
+    header("HTTP/1.0 500 Server Error");
+    echo "Error, param: post missing" . PHP_EOL;
     return;
 }
 
@@ -45,51 +47,38 @@ $fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
 
 if($fileExists) {
-    echo("<p>File exists".'\n');
-    echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">';
+    echo("<p>File exists" . PHP_EOL);
+    echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">' . PHP_EOL;
 } else {
-    echo("<p>File did not exists".'\n');
+    echo("<p>File did not exists" . PHP_EOL);
 }
 
-echo("<p>Rename file...".'\n');
-echo('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.'\n');
+echo("<p>Rename file..." . PHP_EOL);
+echo('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name . PHP_EOL);
 
 //TODO
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
 $last_line = system('cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.' 2>&1');
-echo $last_line.'\n';
+echo $last_line . PHP_EOL;
 
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
 if($fileExists) {
-    echo("<p>File exists".'\n');
-    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name .'">';
+    echo("<p>File exists" . PHP_EOL);
+    echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name .'">' . PHP_EOL;
 } else {
-    echo("<p>File did not exists".'\n');
+    echo("<p>File did not exists" . PHP_EOL);
 }
 
 //TODO
-echo("<p>Search for cached files: \n");
-echo('<p>Command: locate -i "' . $imgurl.'"\n');
+echo("<p>Search for cached files:" . PHP_EOL);
+echo('<p>Command: locate -i "' . $imgurl.'"' . PHP_EOL);
 
 $last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
 //var_dump($resultArray);
 
 foreach ($resultArray as $value) {
     if(strpos($value, '/cache/') !== false) {
-        echo "<p>Command: rm $value\n";
+        echo "<p>Command: rm $value" . PHP_EOL;
     }
 }
-
-
-/*
-$image = getimg($imgurl);
-file_put_contents('img/' . $imagename, $image);
-
-if (file_exists('./img/' . $imagename)) {
-    print "<img src='/cache/800x600-2/img/" . $imagename . "'>";
-} else {
-    print "Error";
-}
-
-*/
