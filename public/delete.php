@@ -28,6 +28,8 @@ if (file_exists('config.php')) {
     require_once('config.php');
 }
 
+var_dump($config);
+
 if(!isset($config['privateKey'])){
     $configKey = md5(rand()).md5(rand());
 }
