@@ -21,6 +21,8 @@
 #ignore local dir
 local/*
 
+public/config.php
+
 phing/*
 
 *.local*
