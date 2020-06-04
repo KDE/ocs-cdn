@@ -32,11 +32,11 @@ $delete_post_name = $_GET['post'];
 $imagename = basename($imgurl);
 
 if (!$imgurl || !$imagename) {
-    print "Error, param: path missing\n";
+    echo "Error, param: path missing\n";
     return;
 }
 if (!$delete_post_name) {
-    print "Error, param: post missing\n";
+    echo "Error, param: post missing\n";
     return;
 }
 
@@ -45,14 +45,14 @@ $fileExists = file_exists($CN_APTH.'/img/' . $imgurl);
 
 
 if($fileExists) {
-    print_r("<p>File exists".'\n');
+    echo("<p>File exists".'\n');
     echo '<img src="'.$CN_APTH.'/img/' . $imgurl .'">';
 } else {
-    print_r("<p>File did not exists".'\n');
+    echo("<p>File did not exists".'\n');
 }
 
-print_r("<p>Rename file...".'\n');
-print_r('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.'\n');
+echo("<p>Rename file...".'\n');
+echo('<p>Command: cp '.$CN_APTH.'/img/' . $imgurl . ' ' . $CN_APTH.'/img/' . $imgurl . $delete_post_name.'\n');
 
 //TODO
 //$last_line = system('mv '.$imgurl . ' ' . $imgurl . $delete_post_name, $retval);
@@ -62,15 +62,15 @@ echo $last_line.'\n';
 $fileExists = file_exists($CN_APTH.'/img/' . $imgurl . $delete_post_name);
 
 if($fileExists) {
-    print_r("<p>File exists".'\n');
+    echo("<p>File exists".'\n');
     echo '<img src="'.$CN_APTH.'/img/' . $imgurl . $delete_post_name .'">';
 } else {
-    print_r("<p>File did not exists".'\n');
+    echo("<p>File did not exists".'\n');
 }
 
 //TODO
-print_r("<p>Search for cached files: \n");
-print_r('<p>Command: locate -i "' . $imgurl.'"\n');
+echo("<p>Search for cached files: \n");
+echo('<p>Command: locate -i "' . $imgurl.'"\n');
 
 $last_line = exec('locate -i "' . $imgurl.'" 2>&1', $resultArray, $result);
 //var_dump($resultArray);
