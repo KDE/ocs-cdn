@@ -20,9 +20,6 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-@ini_set( 'upload_max_size' , '6M' );
-@ini_set( 'post_max_size', '12M');
-
 defined('OCS_DEFAULT_TIMEZONE')
 || define('OCS_DEFAULT_TIMEZONE', (getenv('OCS_DEFAULT_TIMEZONE') ? getenv('OCS_DEFAULT_TIMEZONE') : 'UTC'));
 
