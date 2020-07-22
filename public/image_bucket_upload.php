@@ -20,6 +20,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+defined('OCS_DEFAULT_TIMEZONE')
+|| define('OCS_DEFAULT_TIMEZONE', (getenv('OCS_DEFAULT_TIMEZONE') ? getenv('OCS_DEFAULT_TIMEZONE') : 'UTC'));
+
+date_default_timezone_set(OCS_DEFAULT_TIMEZONE);
+
 // Define path to application directory
 defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)));
@@ -41,7 +46,6 @@ defined('OCS_IMGCACHE_LOGFILE')
 
 defined('OCS_IMGCACHE_LOG_MODE')
 || define('OCS_IMGCACHE_LOG_MODE', (getenv('OCS_IMGCACHE_LOG_MODE') ? getenv('OCS_IMGCACHE_LOG_MODE') : 'a'));
-
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
