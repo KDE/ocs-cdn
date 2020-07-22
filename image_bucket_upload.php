@@ -63,8 +63,8 @@ $log->debug('_FILES: ' . print_r($_FILES, true));
 $upload = new Zend_File_Transfer_Adapter_Http();
 $upload->addValidator('Count', false, 1)
     ->addValidator('IsImage', false)
-    ->addValidator('Size', false, 5097152)
-    ->addValidator('FilesSize', false, 5097152);
+    ->addValidator('Size', false, 10097152)
+    ->addValidator('FilesSize', false, 10097152);
 
 //$upload->addValidator('ImageSize', false,
 //    array(
