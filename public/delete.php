@@ -20,6 +20,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+//echo "Deactivated for now";
+//return;
+
+
+
 //Constants
 //$CN_APTH = "/mnt/volume-fra1-11/var/www/cdn/pling-cdn";
 $CN_APTH = ".";
@@ -56,6 +61,11 @@ if (!$imgurl || !$imagename) {
 if (!$delete_post_name) {
     header("HTTP/1.0 500 Server Error");
     echo "Error, param: post missing" . PHP_EOL;
+    return;
+}
+
+if($imagename == "std_avatar_80.png") {
+    echo "Nothing to do. We do not delete std_avatar_80.png";
     return;
 }
 
