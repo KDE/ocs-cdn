@@ -85,7 +85,7 @@ if (false === $upload->isValid()){
 }
 
 //create buckets
-$fileHash = $upload->getHash('sha1');
+$fileHash = $upload->getHash('sha1').''. md5(rand());
 $destBucketPath = substr_replace($fileHash, '/', 1, 0);
 $destBucketPath = substr_replace($destBucketPath, '/', 3, 0);
 $destBucketPath = substr_replace($destBucketPath, '/', 5, 0);
