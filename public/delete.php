@@ -33,7 +33,7 @@ if (file_exists('config.php')) {
     require_once('config.php');
 } else {
     header("HTTP/1.0 500 Server Error");
-    echo "Error" . PHP_EOL;
+    echo "Error: no config" . PHP_EOL;
     return;
 }
 
@@ -44,7 +44,7 @@ $privKey = urldecode($_GET['key']);
 
 if (!$privKey || $privKey != $configKey) {
     header("HTTP/1.0 500 Server Error");
-    echo "Error" . PHP_EOL;
+    echo "Error: param missing" . PHP_EOL;
     return;
 }
 
