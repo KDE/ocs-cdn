@@ -12,6 +12,6 @@ Options -Indexes
 
 RewriteEngine On
 
-RewriteCond %{REQUEST_FILENAME} !-s [AND]
+RewriteCond %{REQUEST_FILENAME} !-s
 RewriteCond %{REQUEST_URI} .*(/cache/.*)
 RewriteRule ^.*$ /resize.php?dir=%1 [L]
